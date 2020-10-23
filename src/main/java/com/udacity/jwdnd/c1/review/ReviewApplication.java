@@ -11,23 +11,27 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 public class ReviewApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ReviewApplication.class, args);
-	}
-	@Bean
-	public String basicMessage() {
-		System.out.println("inside basic message");
-		return "Hello";
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ReviewApplication.class, args);
+    }
 
-	@Bean
-	public String compoundMessage(String basicMessage) {
-		System.out.println("inside compoundMessage, received: " +basicMessage);
-		return basicMessage + ", Spring!";
-	}
-	@Bean
-	public int characterCount(String message) {
-		return message.length();
-	}
+    @Bean
+    public String message() {
+        System.out.println("Creating a message bean");
+        return "Hello,Spring!";
+    }
+
+    @Bean
+    public String toUppercase(MessageService messageService) {
+        System.out.println("Creating upperCaseMessage bean");
+        return messageService.uppercase();
+    }
+
+    @Bean
+    public String lowercaseMessage(MessageService messageService) {
+        System.out.println("Creating lowercaseMessage bean");
+        return messageService.lowercase();
+    }
+
 
 }
